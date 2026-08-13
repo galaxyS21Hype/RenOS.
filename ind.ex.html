@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+  <title>RenOS Mobile Shell (Shifted Up)</title>
+  <style>
+    :root {
+      --ios-radius: 22%;
+      --blur-glass: blur(17.16px) saturate(180%);
+      --bg-glass: rgba(255, 255, 255, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none; /* Prevents touch scrolling & bouncing */
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    }
+
+    /* Fixed Viewport Container */
+    body {
+      background: #111;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden; /* Locks page scrolling */
+      position: fixed;  /* Hard fixes viewport in place */
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Device Frame Simulation (Positioned higher) */
+    .phone-screen {
+      width: 270.17px;
+      height: 585.76px;
+      background: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000') center/cover;
+      border-radius: 34.38px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 17.16px 34.38px -8.25px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0; /* Prevents frame crushing */
+      transform: translateY(-25px); /* Moves phone slightly higher */
+    }
+
+    /* Status Bar with Punch Hole */
+    .status-bar {
+      height: 33.00px;
+      padding: 0 16.50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      font-weight: 600;
+      font-size: 9.63px;
+      position: relative;
+      z-index: 100;
+    }
+
+    /* Center Camera Punch-Hole */
+    .punch-hole {
+      width: 12.38px;
+      height: 12.38px;
+      background-color: #000;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: inset 0 0 1px rgba(255,255,255,0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* App Grid */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13.75px 11.00px;
+      padding: 13.75px 16.50px;
+      margin-top: 6.88px;
+    }
+
+    .app-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4.13px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .app-icon:active {
+      transform: scale(0.88);
+    }
+
+    .icon-box {
+      width: 42.63px;
+      height: 42.63px;
+      border-radius: var(--ios-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19.25px;
+      box-shadow: 0 2.75px 8.25px rgba(0,0,0,0.15);
+    }
+
+    .app-name {
+      color: white;
+      font-size: 7.56px;
+      font-weight: 500;
+      text-shadow: 0 0.66px 1.98px rgba(0,0,0,0.6);
+    }
+
+    /* iOS Glass Dock */
+    .dock-container {
+      padding: 0 11.00px 13.75px 11.00px;
+    }
+
+    .dock {
+      background: var(--bg-glass);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border-radius: 23.98px;
+      padding: 9.63px 11.00px;
+      display: flex;
+      justify-content: space-around;
+      border: 0.66px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Home Indicator Line */
+    .home-indicator {
+      width: 92.13px;
+      height: 3.41px;
+      background: white;
+      border-radius: 1.98px;
+      position: absolute;
+      bottom: 5.50px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="phone-screen">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="punch-hole" id="camera"></div>
+      <div style="display:flex; gap: 4.13px; align-items: center;">
+        <span>5G</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <!-- Home Screen App Grid -->
+    <div class="app-grid">
+      <div class="app-icon">
+        <div class="icon-box" style="background: linear-gradient(#34d399, #059669);">💬</div>
+        <span class="app-name">Messages</span>
+      </div>
+      <div class="app-icon">
+        <div class="icon-box" style="background: linear-gradient(#60a5fa, #2563eb);">📅</div>
+        <span class="app-name">Calendar</span>
+      </div>
+      <div class="app-icon">
+        <div class="icon-box" style="background: linear-gradient(#f87171, #dc2626);">🎵</div>
+        <span class="app-name">Music</span>
+      </div>
+      <div class="app-icon">
+        <div class="icon-box" style="background: linear-gradient(#fbbf24, #d97706);">📷</div>
+        <span class="app-name">Camera</span>
+      </div>
+    </div>
+
+    <!-- Bottom Dock -->
+    <div class="dock-container">
+      <div class="dock">
+        <div class="app-icon">
+          <div class="icon-box" style="background: linear-gradient(#a7f3d0, #10b981);">📞</div>
+        </div>
+        <div class="app-icon">
+          <div class="icon-box" style="background: linear-gradient(#38bdf8, #0284c7);">🌐</div>
+        </div>
+        <div class="app-icon">
+          <div class="icon-box" style="background: linear-gradient(#cbd5e1, #64748b);">⚙️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Home Bar -->
+    <div class="home-indicator"></div>
+  </div>
+
+</body>
+</html>
+    
